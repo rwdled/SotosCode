@@ -14,7 +14,7 @@ for ch in text:
     else:
        time.sleep(0.02)
        print(temp+i)
-
+time.sleep(3)
 os.system('clear')
 text2 = "proof of - entry scan system, broke - detection software Theromdynamic software one goraillen dps   "
 
