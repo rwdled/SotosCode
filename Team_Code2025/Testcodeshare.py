@@ -34,17 +34,16 @@ def newgame():
             apple.setposition(random.randint(-250, 250), random.randint(-250, 250))
             total_score += 1
             print(total_score)
-   
-   #Controls
+   def move_and_check():
+      newttrt.forward(25)
+      point()
    tmuncher.listen()
    tmuncher.onkey(lambda: newttrt.left(90), "a")
-   tmuncher.onkey(lambda: newttrt.forward(25), "w")
+   tmuncher.onkey(move_and_check, "w")
    tmuncher.onkey(lambda: newttrt.backward(25), "s")
    tmuncher.onkey(lambda: newttrt.right(90), "d")
-   
-
-
-
+   point()
+   tmuncher.done()
 if player == "1":
    newgame()
    
