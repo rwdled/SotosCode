@@ -12,12 +12,11 @@ player = input('''Please select an option
 def newgame():
    #list for turtle expansion
    trtleextend = [tmuncher.Turtle(shape="square"), tmuncher.Turtle(shape="square")]
-   
    newttrt = tmuncher.Turtle(shape="turtle")
-   while True:
-      trtleextend[1].setposition(-1, newttrt.ycor())
-     trtleextend[0].setposition(-1, newttrt.ycor())
-     break
+   #while True:
+      #trtleextend[1].setposition(-1, newttrt.ycor())
+      #trtleextend[0].setposition(-1, newttrt.ycor())
+      #break
    newttrt.penup()
    
    apple = tmuncher.Turtle(shape="circle")
