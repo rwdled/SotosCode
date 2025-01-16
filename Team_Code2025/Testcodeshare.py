@@ -1,6 +1,7 @@
 import turtle as tmuncher
 import random
 import keyboard
+import time
 
 player = input('''Please select an option
                 1. Play
@@ -39,18 +40,17 @@ def newgame():
    def point():
          if check_collision(newttrt, apple):
             apple.setposition(random.randint(-250, 250), random.randint(-250, 250))
-            trtleextend.append(tmuncher.Turtle(shape="turtle"))
             add_turtle()
 
         #controls    
    def move_and_check():
-      newttrt.forward(25)
-      point()
-      move_turtles()
-      tmuncher.ontime(move_and_check, 250)
+      if newgame ==  True:
+         newttrt.forward(25)
+         point()
+         move_turtles()
+         tmuncher.ontimer(move_and_check, 250)
    
    tmuncher.listen()
-   move_and_check()
    tmuncher.onkey(lambda: newttrt.left(90), "a")
    tmuncher.onkey(lambda: newttrt.right(90), "d")
    move_and_check()
