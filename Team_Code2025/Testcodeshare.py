@@ -53,7 +53,7 @@ def newgame():
    tmuncher.listen()
    tmuncher.onkey(lambda: newttrt.left(90), "a")
    tmuncher.onkey(lambda: newttrt.right(90), "d")
-   move_and_check()
+   tmuncher.onkey(lambda: newttrt.forward(25), "w")
    tmuncher.done()
 
 if player == "1":
