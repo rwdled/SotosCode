@@ -2,7 +2,6 @@ import turtle as tmuncher
 import random
 import keyboard
 import time
-import os
 
 player = input('''Please select an option
                 1. Play
@@ -23,7 +22,7 @@ def newgame():
    apple = tmuncher.Turtle(shape="circle")
    apple.color("red")
    apple.penup()
-   apple.setposition(random.randint(-250, 249), random.randint(-250, 250))
+   apple.setposition(random.randint(-250, 250), random.randint(-250, 250))
   
    def check_collision(check1, check2):
       return check1.distance(check2) < 20
@@ -61,7 +60,7 @@ def newgame():
          if check_collision(newttrt, trtleextend[i]):
             print("ran into yourself, Game is ober. you had " + str(points) + " points")
             break
-   #      controls    your a faggot :) - jordin&ben
+   #      controls    you're a faggot :) - jordin 
    
    
 
