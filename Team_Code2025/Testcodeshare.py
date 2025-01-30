@@ -17,6 +17,7 @@ def newgame():
    newttrt = tmuncher.Turtle(shape="turtle")
    newttrt.penup()
    newttrt.color("black")
+   addpoint = 0
 
    #apple
    apple = tmuncher.Turtle(shape="circle")
@@ -37,11 +38,12 @@ def newgame():
             trtleextend[i].goto(trtleextend[i - 1].position())
         trtleextend[0].goto(newttrt.position())
 
-   def point(z):
-         if check_collision(newttrt, apple):
-            apple.setposition(random.randint(-250, 250), random.randint(-250, 250))
-            add_turtle()
-            #return z + 1
+   def point():
+         while newttrt.distance(apple) < 20:
+            if check_collision(newttrt, apple):
+               apple.setposition(random.randint(-250, 250), random.randint(-250, 250))
+               add_turtle()
+               return addpoint + 1
    while True:
       tmuncher.listen()
       tmuncher.onkey(lambda: newttrt.left(90), "a")
@@ -49,7 +51,7 @@ def newgame():
       tmuncher.onkey(lambda: newttrt.forward(25), "w")
       tmuncher.onkey(lambda: newttrt.backward(25), "s")
       move_turtles()
-      points = point(points)
+      points = point()
       tmuncher.update()
       newttrt.forward(20)
       time.sleep(0.1)
@@ -60,11 +62,7 @@ def newgame():
          if check_collision(newttrt, trtleextend[i]):
             print("ran into yourself, Game is ober. you had " + str(points) + " points")
             break
-   #      controls    you're a faggot :) - jordin 
-   
-   
-
-   
+   #      controls 
    tmuncher.done()
 
 if player == "1":
