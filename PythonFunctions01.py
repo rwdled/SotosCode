@@ -22,11 +22,27 @@ def greet():
 greet() #calling a function
 greet() #calling  it again
 #greet()
+print("-----------------")
+
 
 #change it intp speific person greeting
 # function/merhod overloading
-def greet(name):
-    print("hello" + name)
+def greet(person_name = ""):
+    print("hello" + person_name)
     print("Today, we will learn about functions")
 
+greet("Benjaimin")
 greet()
+
+def greet(person, subject):
+    print("hello" + person)
+    print("Today, we will learn about " + subject)
+
+greet("Benjaimin", "Data Types")
+
+# procedure mystery(number)
+def rectangle_area(length, width):
+    area = length * width
+    print("The area of the rectangle is " + str(area))
+
+rectangle_area(5, 10)
