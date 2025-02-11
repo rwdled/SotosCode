@@ -1,15 +1,27 @@
+import java.util.ArrayList;
+
 class javatest{
-    static void greet(String name, int age){ 
-        System.out.println("Hello World");
-    }
-
     public static void main(String[] args){
-        
-        greet("John", 20);
-        greet(20, "John");
-        System.out.println("Hello World");
-
-
     
+      int[] studentGrades = {100,90,60,70,20,4,60,90,100,10};
+      
+      if (studentGrades.length == 0){
+        System.out.println("No grades available");
+      }
+       int numfailing = 0;
+       int numPassing = 0;
+      for (int i = 0; i < studentGrades.length; i++){
+        if (studentGrades[i] < 50){
+          numfailing++;
+        }
+        else{
+          numPassing++;
+        }
+        System.out.println("Number of failing grades: " + numfailing);
+        System.out.println("Number of passing grades: " + numPassing);
+      }
+        
     }
+
+
 }
