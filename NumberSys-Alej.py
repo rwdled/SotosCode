@@ -8,7 +8,8 @@
 # 256 128 64 32 16 8 4 2 1
 #base 2
 
-
+userinput = input("Enter a number: ")
+userinput = int(userinput)
 
 
 
@@ -22,4 +23,7 @@ def dec2bin(n):
     else:
         return dec2bin(n//2) + str(n%2)
 
-print(dec2bin(6))
+print("Binary: ", dec2bin(userinput))
+print("Hexadecimal: ", hex(userinput))
+print("Octal: ", oct(userinput))
+print("Decimal: ", userinput)
