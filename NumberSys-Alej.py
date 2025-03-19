@@ -22,8 +22,43 @@ def dec2bin(n):
         return '1'
     else:
         return dec2bin(n//2) + str(n%2)
+    
+def dec2hex(n):
+    if n == 0:
+        return '0'
+    elif n == 1:
+        return '1'
+    elif n == 2:
+        return '2'
+    elif n == 3:
+        return '3'
+    elif n == 4:
+        return '4'
+    elif n == 5:
+        return '5'
+    elif n == 6:
+        return '6'
+    elif n == 7:
+        return '7'
+    elif n == 8:
+        return '8'
+    elif n == 9:
+        return '9'
+    elif n == 10:
+        return 'A'
+    elif n == 11:
+        return 'B'
+    elif n == 12:
+        return 'C'
+    elif n == 13:
+        return 'D'
+    elif n == 14:
+        return 'E'
+    elif n == 15:
+        return 'F'
+    else:
+        return dec2hex(n//16) + str(n%16)
 
 print("Binary: ", dec2bin(userinput))
-print("Hexadecimal: ", hex(userinput))
-print("Octal: ", oct(userinput))
+print("Hexadecimal: ", dec2hex(userinput))
 print("Decimal: ", userinput)
