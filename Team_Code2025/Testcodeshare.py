@@ -11,7 +11,6 @@ player = input('''Please select an option
 
 def newgame():
    points = 0
-   #list for turtle expansion
    trtleextend = [tmuncher.Turtle(shape="square"), tmuncher.Turtle(shape="square")]
    
    newttrt = tmuncher.Turtle(shape="turtle")
@@ -62,7 +61,6 @@ def newgame():
          if check_collision(newttrt, trtleextend[i]):
             print("ran into yourself, Game is ober. you had " + str(points) + " points")
             break
-   #      controls 
    tmuncher.done()
 
 if player == "1":

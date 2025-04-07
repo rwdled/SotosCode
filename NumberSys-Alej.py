@@ -7,8 +7,8 @@
 #binary chart:
 # 256 128 64 32 16 8 4 2 1
 #base 2
-
-userinput = input("Enter a number: ")
+#decimal chart:
+userinput = input("Enter a decimal: ")
 userinput = int(userinput)
 
 

@@ -1,0 +1,185 @@
+package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.ServoConfigurationType;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ServoController;
+/**
+* This OpMode illustrates driving a 4-motor Omni-Directional robot.
+* This code will work with either a Mecanum-Drive or an X-Drive train.
+*
+* 1) Axial:    Driving forward and backward               Left-joystick Forward/Backward
+* 2) Lateral:  Strafing right and left                     Left-joystick Right and Left
+* 3) Yaw:      Rotating Clockwise and counter clockwise    Right-joystick Right and Left
+*/
+@TeleOp(name="KYSDRIVE", group="Linear Opmode")
+//@Disabled
+public class KYSDRIVE extends LinearOpMode{
+   // Declare OpMode members for each of the 4 motors.
+   private ElapsedTime runtime = new ElapsedTime();
+   private DcMotor leftFrontDrive = null;
+   private DcMotor leftBackDrive = null;
+   private DcMotor rightFrontDrive = null;
+   private DcMotor rightBackDrive = null;
+   private Servo leftservo = null;
+   private Servo rightservo = null;
+    
+   private DcMotor leftHy = null;
+   private DcMotor rightHy = null;
+    private DcMotor arm = null;
+   @Override
+   public void runOpMode() {
+       // Initialize the hardware variables. Note that the strings used here must correspond
+       // to the names assigned during the robot configuration step on the DS or RC devices.
+      leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front");
+      leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back");
+      rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front");
+      rightBackDrive = hardwareMap.get(DcMotor.class, "right_back");
+       
+      rightservo = hardwareMap.get(Servo.class, "leftservo");
+      leftservo =  hardwareMap.get(Servo.class, "rightservo");
+      arm = hardwareMap.get(DcMotor.class, "arm");
+     
+       leftHy = hardwareMap.get(DcMotor.class, "LTower");
+       rightHy = hardwareMap.get(DcMotor.class, "RTower");
+       leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+       leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+       rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+       rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+       leftHy.setDirection(DcMotor.Direction.FORWARD);
+       rightHy.setDirection(DcMotor.Direction.FORWARD);
+       // Wait for the game to start (driver presses PLAY)
+       telemetry.addData("Status", "Initialized");
+       telemetry.update();
+       waitForStart();
+       runtime.reset();
+       // run until the end of the match (driver presses STOP)
+       while (opModeIsActive()) {
+    class pickup {
+        public void pickup() {
+            
+            leftservo.setPosition(0.5);
+            rightservo.setPosition(0.5);}
+          
+
+          // These are the values for the motors to move the robot in a straight line.
+           double max;
+           double yaw     =  gamepad1.right_stick_x;
+           double leftFrontPower  = yaw;
+           double rightFrontPower = - yaw;
+           double leftBackPower   = yaw;
+           double rightBackPower  = -yaw;
+           double speed = 0.5;
+           //USE THE D-PAD FOR MOVEMENT
+           if(gamepad1.dpad_up){
+               leftFrontPower  = speed;
+               rightFrontPower = -speed;
+               leftBackPower   = -speed;
+               rightBackPower  = -speed;
+           }
+           else if(gamepad1.dpad_down){
+              leftFrontPower  = -speed;
+               rightFrontPower = speed;
+               leftBackPower   = speed;
+               rightBackPower  = speed;
+           }
+           else if(gamepad1.dpad_left){
+                leftFrontPower  = speed;
+               rightFrontPower = speed;
+               leftBackPower   = speed;
+               rightBackPower  = -speed;
+           }
+           else if(gamepad1.dpad_right){
+               
+               leftFrontPower  = -speed;
+               rightFrontPower = -speed;
+               leftBackPower   = -speed;
+               rightBackPower  = speed;
+           }
+           //Movement for hydraulic
+           double hydraulicMotorPower = 0;
+           double hydraulicMotorPower1 = 0;
+           double APower = 0;
+           //
+           if(gamepad1.left_stick_y > 0){
+              leftHy.setDirection(DcMotor.Direction.FORWARD); 
+              rightHy.setDirection(DcMotor.Direction.FORWARD);
+              hydraulicMotorPower = 0.8;
+              hydraulicMotorPower1 = 0.8;
+            
+           }
+           
+           if(gamepad1.left_stick_y < 0){
+              leftHy.setDirection(DcMotor.Direction.REVERSE);
+              rightHy.setDirection(DcMotor.Direction.REVERSE);
+              hydraulicMotorPower = 0.8;
+              hydraulicMotorPower1 = 0.8;
+            
+           }
+           //Arm Movement will be the horizontal movement of the left joystick
+           if(gamepad1.left_trigger > 0){
+               arm.setDirection(DcMotor.Direction.REVERSE);
+               APower = 0.6;
+           }
+           
+           if(gamepad1.right_trigger > 0){
+              arm.setDirection(DcMotor.Direction.FORWARD);
+              APower = 0.6;
+           }
+           
+          
+        
+           // Normalize the values so no wheel power exceeds 100%
+           // This ensures that the robot maintains the desired motion.
+           max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+           max = Math.max(max, Math.abs(leftBackPower));
+           max = Math.max(max, Math.abs(rightBackPower));
+           // Motors power go from 0.00 to 1.00, anything beyond 1.0
+           // 1.00 is equal to 100%
+           if (max > 1.0) {
+               leftFrontPower  /= max;
+               rightFrontPower /= max;
+               leftBackPower   /= max;
+               rightBackPower  /= max;
+           }
+           // Send calculated power to wheels
+           leftFrontDrive.setPower(leftFrontPower);
+           rightFrontDrive.setPower(rightFrontPower);
+           leftBackDrive.setPower(leftBackPower);
+           rightBackDrive.setPower(rightBackPower);
+           leftHy.setPower(hydraulicMotorPower);
+           rightHy.setPower(hydraulicMotorPower1);
+           arm.setPower(APower);
+        
+              //Servo Movement
+        
+        if (gamepad1.a) {
+        
+          leftservo.setPosition(-0.7);
+          rightservo.setPosition(0.7);
+        }
+         if (gamepad1.x) {
+           leftservo.setPosition(0.6);
+           rightservo.setPosition(-0.6);
+         }
+        if (gamepad1.b) {
+           leftservo.setPosition(0.5);
+           rightservo.setPosition(0.5);
+         }
+        
+           // Show the elapsed game time and wheel power.
+           telemetry.addData("Status", "Run Time: " + runtime.toString());
+           telemetry.addData("Front: left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
+           telemetry.addData("Back:  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
+           telemetry.addData("Hydraulic Motor Left", hydraulicMotorPower);
+           telemetry.addData("Hydraulic Motor Right", hydraulicMotorPower1);
+           telemetry.update();
+       }
+   }
+}
+
