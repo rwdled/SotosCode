@@ -23,10 +23,10 @@ public class autosample extends LinearOpMode{
 
     @Override
     public void runOpMode() {
-        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
-        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+        leftFront = hardwareMap.get(DcMotor.class, "leftfront");
+        rightFront = hardwareMap.get(DcMotor.class, "rightfront");
+        leftBack = hardwareMap.get(DcMotor.class, "leftback");
+        rightBack = hardwareMap.get(DcMotor.class, "rightback");
         servo1 = hardwareMap.get(Servo.class, "rightservo");
         servo2 = hardwareMap.get(Servo.class, "leftservo");
 
@@ -56,69 +56,69 @@ public class autosample extends LinearOpMode{
             break; // Exit the loop after one iteration for demonstration purposes
         }
 
-        public void stopMotors(){
-             // Stop the robot
-            leftFront.setPower(0);
-            rightFront.setPower(0);
-            leftBack.setPower(0);
-            rightBack.setPower(0);
+        // public void stopMotors(){
+        //      // Stop the robot
+        //     leftFront.setPower(0);
+        //     rightFront.setPower(0);
+        //     leftBack.setPower(0);
+        //     rightBack.setPower(0);
 
-        }
-        public void moveForward(double power, long duration) {
-            leftFront.setPower(power);
-            rightFront.setPower(power);
-            leftBack.setPower(power);
-            rightBack.setPower(power);
-            sleep(duration);
-            stopMotors();
-        }
-        public void moveBackward(double power, long duration) {
-            leftFront.setPower(-power);
-            rightFront.setPower(-power);
-            leftBack.setPower(-power);
-            rightBack.setPower(-power);
-            sleep(duration);
-            stopMotors();
-        }
-        public void turnLeft(double power, long duration) {
-            leftFront.setPower(-power);
-            rightFront.setPower(power);
-            leftBack.setPower(-power);
-            rightBack.setPower(power);
-            sleep(duration);
-            stopMotors();
-        }
-        public void turnRight(double power, long duration) {
-            leftFront.setPower(power);
-            rightFront.setPower(-power);
-            leftBack.setPower(power);
-            rightBack.setPower(-power);
-            sleep(duration);
-            stopMotors();
-        }
-        public void strafeLeft(double power, long duration) {
-            leftFront.setPower(-power);
-            rightFront.setPower(power);
-            leftBack.setPower(power);
-            rightBack.setPower(-power);
-            sleep(duration);
-            stopMotors();
-        }
-        public void strafeRight(double power, long duration) {
-            leftFront.setPower(power);
-            rightFront.setPower(-power);
-            leftBack.setPower(-power);
-            rightBack.setPower(power);
-            sleep(duration);
-            stopMotors();
-        }
-        public void setServoPosition(Servo servo, double position) {
-            servo.setPosition(position);
-        }
-        public void setServoPositions(double position1, double position2) {
-            servo1.setPosition(position1);
-            servo2.setPosition(position2);
-        }
+        // }
+        // public void moveForward(double power, long duration) {
+        //     leftFront.setPower(power);
+        //     rightFront.setPower(power);
+        //     leftBack.setPower(power);
+        //     rightBack.setPower(power);
+        //     sleep(duration);
+        //     stopMotors();
+        // }
+        // public void moveBackward(double power, long duration) {
+        //     leftFront.setPower(-power);
+        //     rightFront.setPower(-power);
+        //     leftBack.setPower(-power);
+        //     rightBack.setPower(-power);
+        //     sleep(duration);
+        //     stopMotors();
+        // }
+        // public void turnLeft(double power, long duration) {
+        //     leftFront.setPower(-power);
+        //     rightFront.setPower(power);
+        //     leftBack.setPower(-power);
+        //     rightBack.setPower(power);
+        //     sleep(duration);
+        //     stopMotors();
+        // }
+        // public void turnRight(double power, long duration) {
+        //     leftFront.setPower(power);
+        //     rightFront.setPower(-power);
+        //     leftBack.setPower(power);
+        //     rightBack.setPower(-power);
+        //     sleep(duration);
+        //     stopMotors();
+        // }
+        // public void strafeLeft(double power, long duration) {
+        //     leftFront.setPower(-power);
+        //     rightFront.setPower(power);
+        //     leftBack.setPower(power);
+        //     rightBack.setPower(-power);
+        //     sleep(duration);
+        //     stopMotors();
+        // }
+        // public void strafeRight(double power, long duration) {
+        //     leftFront.setPower(power);
+        //     rightFront.setPower(-power);
+        //     leftBack.setPower(-power);
+        //     rightBack.setPower(power);
+        //     sleep(duration);
+        //     stopMotors();
+        // }
+        // public void setServoPosition(Servo servo, double position) {
+        //     servo.setPosition(position);
+        // }
+        // public void setServoPositions(double position1, double position2) {
+        //     servo1.setPosition(position1);
+        //     servo2.setPosition(position2);
+        // }
 
     }
 }
