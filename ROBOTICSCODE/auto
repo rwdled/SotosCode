@@ -18,8 +18,8 @@ public class autosample extends LinearOpMode{
     private DcMotor rightFront = null;
     private DcMotor leftBack = null;
     private DcMotor rightBack = null;
-    private Servo servo1 = null;
-    private Servo servo2 = null;
+    private Servo leftservo = null;
+    private Servo rightservo = null;
 
     @Override
     public void runOpMode() {
@@ -27,15 +27,16 @@ public class autosample extends LinearOpMode{
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
-        servo1 = hardwareMap.get(Servo.class, "servo1");
-        servo2 = hardwareMap.get(Servo.class, "servo2");
+        servo1 = hardwareMap.get(Servo.class, "rightservo");
+        servo2 = hardwareMap.get(Servo.class, "leftservo");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
         runtime.reset();
-
+        //If this works, then we can move on to the next step of the project.
+        // This is a simple example of moving the robot forward for 1 second and then stopping.
         while (opModeIsActive()) {
             // Move forward for 1 second
             leftFront.setPower(1.0);
@@ -44,11 +45,7 @@ public class autosample extends LinearOpMode{
             rightBack.setPower(1.0);
             sleep(1000);
 
-            // Stop the robot
-            leftFront.setPower(0);
-            rightFront.setPower(0);
-            leftBack.setPower(0);
-            rightBack.setPower(0);
+           
 
             // Move the servos to a position
             servo1.setPosition(1.0); // Set servo1 to position 1.0
@@ -58,5 +55,70 @@ public class autosample extends LinearOpMode{
 
             break; // Exit the loop after one iteration for demonstration purposes
         }
+
+        public void stopMotors(){
+             // Stop the robot
+            leftFront.setPower(0);
+            rightFront.setPower(0);
+            leftBack.setPower(0);
+            rightBack.setPower(0);
+
+        }
+        public void moveForward(double power, long duration) {
+            leftFront.setPower(power);
+            rightFront.setPower(power);
+            leftBack.setPower(power);
+            rightBack.setPower(power);
+            sleep(duration);
+            stopMotors();
+        }
+        public void moveBackward(double power, long duration) {
+            leftFront.setPower(-power);
+            rightFront.setPower(-power);
+            leftBack.setPower(-power);
+            rightBack.setPower(-power);
+            sleep(duration);
+            stopMotors();
+        }
+        public void turnLeft(double power, long duration) {
+            leftFront.setPower(-power);
+            rightFront.setPower(power);
+            leftBack.setPower(-power);
+            rightBack.setPower(power);
+            sleep(duration);
+            stopMotors();
+        }
+        public void turnRight(double power, long duration) {
+            leftFront.setPower(power);
+            rightFront.setPower(-power);
+            leftBack.setPower(power);
+            rightBack.setPower(-power);
+            sleep(duration);
+            stopMotors();
+        }
+        public void strafeLeft(double power, long duration) {
+            leftFront.setPower(-power);
+            rightFront.setPower(power);
+            leftBack.setPower(power);
+            rightBack.setPower(-power);
+            sleep(duration);
+            stopMotors();
+        }
+        public void strafeRight(double power, long duration) {
+            leftFront.setPower(power);
+            rightFront.setPower(-power);
+            leftBack.setPower(-power);
+            rightBack.setPower(power);
+            sleep(duration);
+            stopMotors();
+        }
+        public void setServoPosition(Servo servo, double position) {
+            servo.setPosition(position);
+        }
+        public void setServoPositions(double position1, double position2) {
+            servo1.setPosition(position1);
+            servo2.setPosition(position2);
+        }
+
     }
 }
