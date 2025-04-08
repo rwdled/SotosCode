@@ -1,0 +1,62 @@
+package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.ServoConfigurationType;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ServoController;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+//Ashton before you put it on onbotjava, MAKE SURE YOU NAME THE FILE autosample.java
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+public class autosample extends LinearOpMode{
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor leftFront = null;
+    private DcMotor rightFront = null;
+    private DcMotor leftBack = null;
+    private DcMotor rightBack = null;
+    private Servo servo1 = null;
+    private Servo servo2 = null;
+
+    @Override
+    public void runOpMode() {
+        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
+        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+        servo1 = hardwareMap.get(Servo.class, "servo1");
+        servo2 = hardwareMap.get(Servo.class, "servo2");
+
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        waitForStart();
+        runtime.reset();
+
+        while (opModeIsActive()) {
+            // Move forward for 1 second
+            leftFront.setPower(1.0);
+            rightFront.setPower(1.0);
+            leftBack.setPower(1.0);
+            rightBack.setPower(1.0);
+            sleep(1000);
+
+            // Stop the robot
+            leftFront.setPower(0);
+            rightFront.setPower(0);
+            leftBack.setPower(0);
+            rightBack.setPower(0);
+
+            // Move the servos to a position
+            servo1.setPosition(1.0); // Set servo1 to position 1.0
+            servo2.setPosition(0.0); // Set servo2 to position 0.0
+
+            // Add more actions as needed
+
+            break; // Exit the loop after one iteration for demonstration purposes
+        }
+    }
+}

@@ -60,11 +60,12 @@ public class KYSDRIVE extends LinearOpMode{
        runtime.reset();
        // run until the end of the match (driver presses STOP)
        while (opModeIsActive()) {
-    class pickup {
-        public void pickup() {
+    // class pickup {
+    //     public void pickup() {
             
-            leftservo.setPosition(0.5);
-            rightservo.setPosition(0.5);}
+    //         leftservo.setPosition(0.5);
+    //         rightservo.setPosition(0.5);
+    //     }
           
 
           // These are the values for the motors to move the robot in a straight line.
@@ -105,7 +106,8 @@ public class KYSDRIVE extends LinearOpMode{
            double hydraulicMotorPower = 0;
            double hydraulicMotorPower1 = 0;
            double APower = 0;
-           //
+           //The movement of both hydraulic motors will be controlled by the left joystick
+           //TODO Increase the speed of the hydraulic motors to 100% when the joystick is moved up or down
            if(gamepad1.left_stick_y > 0){
               leftHy.setDirection(DcMotor.Direction.FORWARD); 
               rightHy.setDirection(DcMotor.Direction.FORWARD);
@@ -122,6 +124,8 @@ public class KYSDRIVE extends LinearOpMode{
             
            }
            //Arm Movement will be the horizontal movement of the left joystick
+           //For the horizontal movement of the single motor that controls the arm and the slides on the other side
+           
            if(gamepad1.left_trigger > 0){
                arm.setDirection(DcMotor.Direction.REVERSE);
                APower = 0.6;
@@ -148,6 +152,7 @@ public class KYSDRIVE extends LinearOpMode{
                rightBackPower  /= max;
            }
            // Send calculated power to wheels
+           //When you add a new servo or motor, make sure to add it here
            leftFrontDrive.setPower(leftFrontPower);
            rightFrontDrive.setPower(rightFrontPower);
            leftBackDrive.setPower(leftBackPower);
