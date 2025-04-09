@@ -2,5 +2,11 @@ The text java file added in this code is updated as of 4/8/2025
 This is kinda a updated version of the TeleOP of the future of the robot
 
 #Updates:
-Autonomus should work. praying it does. 
+As of now I added new Functions to the Java code. If they do not work we gotta do it the long wayyyy.
+Also when the robot is returned we need to add the ENCODERS (Red, white and blue cables) on the robot so that the auto can be faster and maybe even the teleop. 
+-- 
+* Ask for a Saturday Meet. 
+* Have a full robot done by 23rd.
+* Testing begins on 25th. 
+SCOUT TEAMS
 
