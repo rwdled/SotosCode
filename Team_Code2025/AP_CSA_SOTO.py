@@ -8,10 +8,13 @@ player = input('''Please select an option
                 2. Login
 ''' )
 
-
+ # procedure with parameter, for loops with if statements. 
 def newgame():
    points = 0
-   trtleextend = [tmuncher.Turtle(shape="square"), tmuncher.Turtle(shape="square")]
+   square = tmuncher.Turtle(shape="square")
+   square2 = tmuncher.Turtle(shape="square")
+   trtleextend = [square, square2]
+   square.penup()
    
    newttrt = tmuncher.Turtle(shape="turtle")
    newttrt.penup()
@@ -26,7 +29,7 @@ def newgame():
   
    def check_collision(check1, check2):
       return check1.distance(check2) < 20
-   
+
    def add_turtle():
         new_turtle = tmuncher.Turtle(shape="square")
         new_turtle.penup()
@@ -56,16 +59,18 @@ def newgame():
       time.sleep(0.1)
       if newttrt.xcor() > 500 or newttrt.xcor() < -500 or newttrt.ycor() > 500 or newttrt.ycor() < -500:
          print("ran into the wall, Game is ober. you had " + str(points) + " points")
+         tmuncher.bye()
          break
       for i in range(1, len(trtleextend)):
          if check_collision(newttrt, trtleextend[i]):
             print("ran into yourself, Game is ober. you had " + str(points) + " points")
+            tmuncher.bye()
             break
    tmuncher.done()
 
 if player == "1":
    newgame()
   
-   
+  
 
    
