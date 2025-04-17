@@ -5,11 +5,21 @@ import time
 
 player = input('''Please select an option
                 1. Play
-                2. Login
+
 ''' )
+speedopt = int(input('''Please select an option
+                1. Slow
+                2. Medium
+                3. Fast
+
+''' ))
+
+   
+#TODO Add speed function 
 
  # procedure with parameter, for loops with if statements. 
-def newgame():
+def newgame(speed):
+   #setup screen
    points = 0
    square = tmuncher.Turtle(shape="square")
    square2 = tmuncher.Turtle(shape="square")
@@ -26,6 +36,8 @@ def newgame():
    apple.color("red")
    apple.penup()
    apple.setposition(random.randint(-250, 250), random.randint(-250, 250))
+
+  
   
    def check_collision(check1, check2):
       return check1.distance(check2) < 20
@@ -55,7 +67,7 @@ def newgame():
       move_turtles()
       points = point()
       tmuncher.update()
-      newttrt.forward(20)
+      newttrt.forward(speed)
       time.sleep(0.1)
       if newttrt.xcor() > 500 or newttrt.xcor() < -500 or newttrt.ycor() > 500 or newttrt.ycor() < -500:
          print("ran into the wall, Game is ober. you had " + str(points) + " points")
@@ -69,7 +81,17 @@ def newgame():
    tmuncher.done()
 
 if player == "1":
-   newgame()
+   speed = 20
+   if(speedopt == 1):
+       speed = 10
+   elif(speedopt == 2):
+         speed = 20
+   elif(speedopt == 3):
+         speed = 30
+   else:
+         print("Invalid option, defaulting to speed 20")
+         speed = 20
+   newgame(speed)
   
   
 
