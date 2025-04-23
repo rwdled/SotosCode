@@ -70,12 +70,12 @@ def newgame(speed):
       newttrt.forward(speed)
       time.sleep(0.1)
       if newttrt.xcor() > 500 or newttrt.xcor() < -500 or newttrt.ycor() > 500 or newttrt.ycor() < -500:
-         print("ran into the wall, Game is ober. you had " + str(points) + " points")
+         print("ran into the wall, Game is over. you had " + str(points) + " points")
          tmuncher.bye()
          break
       for i in range(1, len(trtleextend)):
          if check_collision(newttrt, trtleextend[i]):
-            print("ran into yourself, Game is ober. you had " + str(points) + " points")
+            print("ran into yourself, Game is over. you had " + str(points) + " points")
             tmuncher.bye()
             break
    tmuncher.done()

@@ -1,0 +1,156 @@
+package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.ServoConfigurationType;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ServoController;
+/**
+* This OpMode illustrates driving a 4-motor Omni-Directional robot.
+* This code will work with either a Mecanum-Drive or an X-Drive train.
+*
+* 1) Axial:    Driving forward and backward               Left-joystick Forward/Backward
+* 2) Lateral:  Strafing right and left                     Left-joystick Right and Left
+* 3) Yaw:      Rotating Clockwise and counter clockwise    Right-joystick Right and Left
+*/
+@TeleOp(name="DeltaCode", group="Linear Opmode")
+//@Disabled
+public class DeltaCode extends LinearOpMode{
+   // Declare OpMode members for each of the 4 motors.
+   private ElapsedTime runtime = new ElapsedTime();
+   private DcMotor leftFrontDrive = null;
+   private DcMotor leftBackDrive = null;
+   private DcMotor rightFrontDrive = null;
+   private DcMotor rightBackDrive = null;
+   private Servo leftservo = null;
+   private Servo rightservo = null;
+   private Servo wirstservo = null;
+    public DcMotor ltower = null;
+    public DcMotor rtower = null;
+    public DcMotor arm = null;
+
+     public void runOpMode() {
+        leftFrontDrive = hardwareMap.get(DcMotor.class, "left_forward");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_forward");
+        leftBackDrive = hardwareMap.get(DcMotor.class, "left_back");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back");
+        ltower = hardwareMap.get(DcMotor.class, "ltower");
+        rtower = hardwareMap.get(DcMotor.class, "rtower");
+         arm = hardwareMap.get(DcMotor.class, "arm");
+
+
+        leftFrontDrive.setDirection(DcMotorSimple.Direction.FORWARD); 
+        leftBackDrive.setDirection(DcMotorSimple.Direction.FORWARD); 
+        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE); 
+        rightBackDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        ltower.setDirection(DcMotorSimple.Direction.FORWARD);
+        rtower.setDirection(DcMotorSimple.Direction.REVERSE);
+        wirstservo = hardwareMap.get(Servo.class, "wrist");
+        leftservo = hardwareMap.get(Servo.class, "leftservo");
+        rightservo = hardwareMap.get(Servo.class, "rightservo");
+        arm.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        waitForStart();
+        runtime.reset();
+
+       while(opModeIsActive()) {
+        double max;
+        double yaw = -gamepad1.right_stick_x; // Right joystick X-axis
+        double leftFrontPower = yaw;
+        double leftBackPower = -yaw;
+        double rightFrontPower = yaw;
+        double rightBackPower = -yaw;
+        double speed = 0.5;
+        
+               //USE LEFT BUMPER TO MOVE SERVO UP AND RIGHT BUMPER TO MOVE SERVO DOWN
+        if(gamepad1.left_bumper) {
+            leftservo.setPosition(1);
+            rightservo.setPosition(-1);
+        } else if (gamepad1.right_bumper) {
+            leftservo.setPosition(-0.9);
+            rightservo.setPosition(0.9);
+        } else {
+            leftservo.setPosition(0.5);
+            rightservo.setPosition(0.5);
+        }
+        //USE D PAD TO MOVE FORWARD AND BACKWARD
+       if(gamepad1.dpad_up) {
+            leftFrontPower += speed;
+            leftBackPower += speed;
+            rightFrontPower -= speed;
+            rightBackPower -= speed;
+        } else if (gamepad1.dpad_down) {
+            leftFrontPower -= speed;
+            leftBackPower -= speed;
+            rightFrontPower += speed;
+            rightBackPower += speed;
+        }
+        //USE D PAD TO STRAFE LEFT AND RIGHT
+        if(gamepad1.dpad_left) {
+            leftFrontPower += speed;
+            leftBackPower += speed;
+            rightFrontPower += speed;
+            rightBackPower += speed;
+        } else if (gamepad1.dpad_right) {
+            leftFrontPower -= speed;
+            leftBackPower -= speed;
+            rightFrontPower -= speed;
+            rightBackPower -= speed;
+        }
+        leftFrontDrive.setPower(leftFrontPower);
+        leftBackDrive.setPower(leftBackPower);
+        rightFrontDrive.setPower(rightFrontPower);
+        rightBackDrive.setPower(rightBackPower);
+    ;
+
+        //USE LEFT TRIGGER TO MOVE TOWER UP AND RIGHT TRIGGER TO MOVE TOWER DOWN
+        if(gamepad1.left_trigger > 0) {
+            ltower.setPower(1);
+            rtower.setPower(1);
+        } else if (gamepad1.right_trigger > 0) {
+            ltower.setPower(-1);
+            rtower.setPower(-1);
+        } else {
+            ltower.setPower(0);
+            rtower.setPower(0);
+        }
+        //USE LEFT STICK TO MOVE ARM UP AND RIGHT STICK TO MOVE ARM DOWN
+        if(gamepad1.left_stick_y > 0) {
+            arm.setPower(1);
+        } else if (gamepad1.left_stick_y < 0) {
+            arm.setPower(-1);
+        } else {
+            arm.setPower(0);
+        }
+        
+             
+        //USE LEFT BUMPER TO MOVE SERVO UP AND RIGHT BUMPER TO MOVE SERVO DOWN
+        if(gamepad1.left_bumper) {
+            leftservo.setPosition(1);
+            rightservo.setPosition(-1);
+        } else if (gamepad1.right_bumper) {
+            leftservo.setPosition(-0.9);
+            rightservo.setPosition(0.9);
+        } else {
+            leftservo.setPosition(0.5);
+            rightservo.setPosition(0.5);
+        }
+        //USE A BUTTON TO MOVE SERVO UP AND B BUTTON TO MOVE SERVO DOWN
+        if(gamepad1.a) {
+            wirstservo.setPosition(1);
+        } else if (gamepad1.b) {
+            wirstservo.setPosition(0);
+        } else {
+            wirstservo.setPosition(0.5);
+        }
+
+
+       }
+     }
+     
+}
